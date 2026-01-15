@@ -1,40 +1,53 @@
-/*function convertToJson(res) {
-  if (res.ok) {
-    return res.json();
-  } else {
-    throw new Error("Bad Response");
-  }
-}*/
+import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
-constructor(productId, dataSource){
-  this.productId = productId;
-  this.product = {};
-  this.dataSource = dataSource;
+
+
+export default class ProductDetails {
+    constructor(productId, dataSource) {
+        this.productId = productId;
+        this.product = {};
+        this.dataSource = dataSource;
+    }
+
+    async init() {
+        // use the datasource to get the details for the current product. findProductById will return a promise! use await or .then() to process it
+        this.product = await this.dataSource.findProductById(this.productId);
+        // the product details are needed before rendering the HTML
+        this.renderProductDetails();
+        // once the HTML is rendered, add a listener to the Add to Cart button
+        // Notice the .bind(this). This callback will not work if the bind(this) is missing. Review the readings from this week on 'this' to understand why.
+        document
+            .getElementById('addToCart')
+            .addEventListener('click', this.addProductToCart.bind(this));
+    }
+
+    addProductToCart() {
+        // Get cart items from local storage or init an empty array
+        const cartItems = getLocalStorage("so-cart") || [];
+        // Add product to cart
+        cartItems.push(this.product);
+        // Save back to storage
+        setLocalStorage("so-cart", cartItems);
+    }
+
+    renderProductDetails() {
+        productDetailsTemplate(this.product);
+    }
 }
 
 
-/*export default class ProductData {
-  constructor(category) {
-    this.category = category;
-    this.path = `/json/${this.category}.json`;
-  }
-  getData() {
-    return fetch(this.path)
-      .then(convertToJson)
-      .then((data) => data);
-  }
-  async findProductById(id) {
-    const products = await this.getData();
-    return products.find((item) => item.Id === id);
-  }
-}*/
+function productDetailsTemplate(product) {
+    document.querySelector('h2').textContent = product.Brand.Name;
+    document.querySelector('h3').textContent = product.NameWithoutBrand;
 
+    const productImage = document.getElementById('productImage');
+    productImage.src = product.Image;
+    productImage.alt = product.NameWithoutBrand;
 
-function addProductToCart(product) {
-  // Get cart items from local storage or init an empty array
-  const cartItems = getLocalStorage("so-cart") || [];
-  // Add product to cart
-  cartItems.push(product);
-  // Save back to storage
-  setLocalStorage("so-cart", cartItems);
+    document.getElementById('productPrice').textContent = product.FinalPrice;
+    document.getElementById('productColor').textContent = product.Colors[0].ColorName;
+    document.getElementById('productDesc').innerHTML = product.DescriptionHtmlSimple;
+
+    document.getElementById('addToCart').dataset.id = product.Id;
 }
+
