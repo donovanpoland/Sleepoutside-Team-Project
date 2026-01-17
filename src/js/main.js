@@ -7,3 +7,6 @@ const element = document.querySelector(".product-list");
 const productList = new ProductList("Tents", dataSource, element);
 productList.init();
 updateCartCount();
+
+// Listen for cart updates from other pages
+window.addEventListener('cartUpdated', updateCartCount);

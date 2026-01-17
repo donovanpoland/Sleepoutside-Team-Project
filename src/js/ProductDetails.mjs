@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, updateCartCount, notifyCartChange } from "./utils.mjs";
 
 
 
@@ -28,6 +28,8 @@ export default class ProductDetails {
         cartItems.push(this.product);
         // Save back to storage
         setLocalStorage("so-cart", cartItems);
+        // Notify all pages that cart has changed
+        notifyCartChange();
     }
 
     renderProductDetails() {
@@ -51,3 +53,4 @@ function productDetailsTemplate(product) {
     document.getElementById('addToCart').dataset.id = product.Id;
 }
 
+updateCartCount();
