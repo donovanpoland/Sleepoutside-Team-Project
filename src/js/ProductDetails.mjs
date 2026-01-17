@@ -45,6 +45,8 @@ export default class ProductDetails {
                 cartSvg.classList.remove('bounce-animation');
             }, 600); // Match the animation duration
         }
+        // Notify all pages that cart has changed
+        notifyCartChange();
     }
 
     renderProductDetails() {
