@@ -11,4 +11,4 @@ product.init();
 updateCartCount();
 
 // Listen for cart updates
-window.addEventListener('cartUpdated', updateCartCount);
+window.addEventListener("cartUpdated", updateCartCount);
