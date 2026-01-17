@@ -39,3 +39,13 @@ export function renderListWithTemplate(template, parentElement, list, position =
   }
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 }
+
+// update cart count badge for shopping cart
+export function updateCartCount() {
+  const cartItems = getLocalStorage("so-cart");
+  const count = cartItems ? cartItems.length : 0;
+  const cartCountElement = qs(".cart-count");
+  if (cartCountElement) {
+    cartCountElement.textContent = count;
+  }
+}
