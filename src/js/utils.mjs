@@ -63,6 +63,7 @@ export function updateCartCount() {
     cartCountElement.textContent = count;
   }
 }
+
 // dispatch a custom event when cart changes
 export function notifyCartChange() {
   window.dispatchEvent(new Event('cartUpdated'));
@@ -78,4 +79,24 @@ export async function loadHeaderFooter(){
   const footerTemplate = await loadTemplate("../partials/footer.html");
   const footerElement = document.querySelector("#dy-footer");
   renderWithTemplate(footerTemplate, footerElement);
+}
+
+// render a list of items using a template function
+export function renderListWithTemplate(template, parentElement, list, position = "afterbegin", clear = false) {
+  const htmlStrings = list.map(template);
+  // if clear is true we need to clear out the contents of the parent.
+  if (clear) {
+    parentElement.innerHTML = "";
+  }
+  parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
+}
+
+// update cart count badge for shopping cart
+export function updateCartCount() {
+  const cartItems = getLocalStorage("so-cart");
+  const count = cartItems ? cartItems.length : 0;
+  const cartCountElement = qs(".cart-count");
+  if (cartCountElement) {
+    cartCountElement.textContent = count;
+  }
 }
