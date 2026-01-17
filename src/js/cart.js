@@ -4,7 +4,7 @@ function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
   const htmlItems = cartItems.map((item, index) =>
     cartItemTemplate(item, index),
-  );// Generate HTML for each cart item with its index
+  ); // Generate HTML for each cart item with its index
 
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
   // Add event listeners to delete buttons
