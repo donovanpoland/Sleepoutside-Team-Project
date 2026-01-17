@@ -13,3 +13,6 @@ const alert = new Alert("/json/Alerts.json");
 alert.init();
   
 
+
+// Listen for cart updates from other pages
+window.addEventListener('cartUpdated', updateCartCount);
