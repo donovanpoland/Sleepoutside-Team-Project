@@ -15,4 +15,4 @@ alert.init();
 
 
 // Listen for cart updates from other pages
-window.addEventListener('cartUpdated', updateCartCount);
+window.addEventListener("cartUpdated", updateCartCount);
