@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, updateCartCount } from "./utils.mjs";
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
@@ -41,6 +41,8 @@ function deleteItem(e) {
   cartItems.splice(itemIndex, 1); // Remove 1 item at the specified index
   setLocalStorage("so-cart", cartItems);
   renderCartContents();
+  //update cart count badge after item is deleted
+  updateCartCount();
 }
-
+updateCartCount();
 renderCartContents();
