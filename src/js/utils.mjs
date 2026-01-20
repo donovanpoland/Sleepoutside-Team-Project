@@ -49,3 +49,7 @@ export function updateCartCount() {
     cartCountElement.textContent = count;
   }
 }
+// dispatch a custom event when cart changes
+export function notifyCartChange() {
+  window.dispatchEvent(new Event('cartUpdated'));
+}
