@@ -17,7 +17,7 @@ function renderCartContents() {
   });
   // Update total
   if(cartItems){
-    document.querySelector(".cart-total").textContent = `Total:${total}`;
+    document.querySelector(".cart-total").textContent = `Total: $${total.toFixed(2)}`;
   }
 }
 
