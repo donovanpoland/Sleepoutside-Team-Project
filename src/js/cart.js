@@ -1,7 +1,11 @@
 import { getLocalStorage, setLocalStorage, updateCartCount } from "./utils.mjs";
 
 function renderCartContents() {
+  // Get cart from local storage
   const cartItems = getLocalStorage("so-cart");
+  // Get total
+  const total = cartItems.reduce((sum, item) => sum + item.FinalPrice, 0);
+  // Get full cart item and display
   const htmlItems = cartItems.map((item, index) =>
     cartItemTemplate(item, index),
   ); // Generate HTML for each cart item with its index
@@ -11,6 +15,10 @@ function renderCartContents() {
   document.querySelectorAll(".cart-card__delete").forEach((btn) => {
     btn.addEventListener("click", deleteItem);
   });
+  // Update total
+  if(cartItems){
+    document.querySelector(".cart-total").textContent = `Total: $${total.toFixed(2)}`;
+  }
 }
 
 // Template for a cart item with index for deletion
