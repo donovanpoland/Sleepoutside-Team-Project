@@ -7,14 +7,15 @@ const dataSource = new ProductData("tents");
 const productId = getParam("product");
 const product = new ProductDetails(productId, dataSource);
 
-// insert header and footer - wait for it to finish before updating cart count
-await loadHeaderFooter();
-
-// update cart count after header is loaded
-updateCartCount();
-
-// add products
-product.init();
-
 // Listen for cart updates
 window.addEventListener("cartUpdated", updateCartCount);
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadHeaderFooter().then(() => {
+    // other startup code
+    // update cart count after header is loaded
+    updateCartCount();
+    // add products
+    product.init();
+  });
+});

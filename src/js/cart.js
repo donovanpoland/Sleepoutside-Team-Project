@@ -1,4 +1,9 @@
-import { getLocalStorage, setLocalStorage, updateCartCount, loadHeaderFooter } from "./utils.mjs";
+import {
+  getLocalStorage,
+  setLocalStorage,
+  updateCartCount,
+  loadHeaderFooter,
+} from "./utils.mjs";
 
 function renderCartContents() {
   // Get cart from local storage
@@ -17,7 +22,8 @@ function renderCartContents() {
   });
   // Update total
   if (cartItems) {
-    document.querySelector(".cart-total").textContent = `Total: $${total.toFixed(2)}`;
+    document.querySelector(".cart-total").textContent =
+      `Total: $${total.toFixed(2)}`;
   }
 }
 
@@ -54,10 +60,13 @@ function deleteItem(e) {
 }
 
 // insert header and footer - wait for it to finish before updating cart count
-await loadHeaderFooter();
+document.addEventListener("DOMContentLoaded", () => {
+  loadHeaderFooter().then(() => {
+    // other startup code
+    // update cart count after header is loaded
+    updateCartCount();
 
-// update cart count after header is loaded
-updateCartCount();
-
-// display cart items
-renderCartContents();
+    // display cart items
+    renderCartContents();
+  });
+});
