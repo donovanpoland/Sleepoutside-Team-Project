@@ -1,4 +1,4 @@
-import { getParam, updateCartCount } from "./utils.mjs";
+import { getParam, updateCartCount, loadHeaderFooter } from "./utils.mjs";
 import ProductData from "./ProductData.mjs";
 //import { getParam } from "./utils.mjs";
 import ProductDetails from "./ProductDetails.mjs";
@@ -7,8 +7,12 @@ const dataSource = new ProductData("tents");
 const productId = getParam("product");
 const product = new ProductDetails(productId, dataSource);
 
-product.init();
+// update cart count
 updateCartCount();
+// insert header and footer
+loadHeaderFooter();
+// add products
+product.init();
 
 // Listen for cart updates
 window.addEventListener("cartUpdated", updateCartCount);

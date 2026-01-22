@@ -40,6 +40,19 @@ export function renderListWithTemplate(template, parentElement, list, position =
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 }
 
+function renderWithTemplate(template, parentElement, data, callback){
+  parentElement.innerHTML = template;
+  if(callback) {
+    callback(data);
+  }
+}
+
+async function loadTemplate(path){
+  const res = await fetch(path);
+  const template = await res.text();
+  return template;
+}
+
 // update cart count badge for shopping cart
 export function updateCartCount() {
   const cartItems = getLocalStorage("so-cart");
@@ -52,4 +65,16 @@ export function updateCartCount() {
 // dispatch a custom event when cart changes
 export function notifyCartChange() {
   window.dispatchEvent(new Event('cartUpdated'));
+}
+
+export async function loadHeaderFooter(){
+  // Add header to page
+  const headerTemplate = await loadTemplate("../partials/header.html");
+  const headerElement = document.querySelector("#dy-header");
+  renderWithTemplate(headerTemplate, headerElement);
+  
+  // Add header to page
+  const footerTemplate = await loadTemplate("../partials/footer.html");
+  const footerElement = document.querySelector("#dy-footer");
+  renderWithTemplate(footerTemplate, footerElement);
 }

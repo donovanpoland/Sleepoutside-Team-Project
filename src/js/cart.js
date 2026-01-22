@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage, updateCartCount } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, updateCartCount, loadHeaderFooter } from "./utils.mjs";
 
 function renderCartContents() {
   // Get cart from local storage
@@ -52,5 +52,9 @@ function deleteItem(e) {
   //update cart count badge after item is deleted
   updateCartCount();
 }
+// update cart count
 updateCartCount();
+// insert header and footer
+loadHeaderFooter();
+// display cart items
 renderCartContents();
