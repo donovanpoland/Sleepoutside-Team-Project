@@ -268,14 +268,14 @@ button {
   font: var(--font-body);
 }
 
-.cart-footer{
+.cart-footer {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   width: 100%;
   max-width: 1080px;
 }
 
-.cart-total{
+.cart-total {
   grid-column: 3/4;
 }
 

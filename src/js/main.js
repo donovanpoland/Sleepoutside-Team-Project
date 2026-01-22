@@ -4,8 +4,6 @@ import { updateCartCount, loadHeaderFooter } from "./utils.mjs";
 import Alert from "./Alert.js";
 import { updateCartCount, loadHeaderFooter } from "./utils.mjs";
 
-
-
 const dataSource = new ProductData("tents");
 const element = document.querySelector(".product-list");
 const productList = new ProductList("Tents", dataSource, element);
