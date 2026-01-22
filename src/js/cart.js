@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage, updateCartCount } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, updateCartCount, loadHeaderFooter } from "./utils.mjs";
 
 function renderCartContents() {
   // Get cart from local storage
@@ -16,7 +16,7 @@ function renderCartContents() {
     btn.addEventListener("click", deleteItem);
   });
   // Update total
-  if(cartItems){
+  if (cartItems) {
     document.querySelector(".cart-total").textContent = `Total: $${total.toFixed(2)}`;
   }
 }
@@ -52,5 +52,12 @@ function deleteItem(e) {
   //update cart count badge after item is deleted
   updateCartCount();
 }
+
+// insert header and footer - wait for it to finish before updating cart count
+await loadHeaderFooter();
+
+// update cart count after header is loaded
 updateCartCount();
+
+// display cart items
 renderCartContents();
