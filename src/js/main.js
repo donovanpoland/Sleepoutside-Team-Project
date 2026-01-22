@@ -9,8 +9,8 @@ const element = document.querySelector(".product-list");
 const productList = new ProductList("Tents", dataSource, element);
 
 
-// insert header and footer
-loadHeaderFooter();
+// insert header and footer - wait for it to finish before continuing
+await loadHeaderFooter();
 productList.init();
 
 

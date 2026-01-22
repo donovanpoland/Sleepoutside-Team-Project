@@ -7,10 +7,12 @@ const dataSource = new ProductData("tents");
 const productId = getParam("product");
 const product = new ProductDetails(productId, dataSource);
 
-// update cart count
+// insert header and footer - wait for it to finish before updating cart count
+await loadHeaderFooter();
+
+// update cart count after header is loaded
 updateCartCount();
-// insert header and footer
-loadHeaderFooter();
+
 // add products
 product.init();
 
