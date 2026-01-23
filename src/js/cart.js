@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Initialize the ShoppingCart class
     const cart = new ShoppingCart(
       document.querySelector(".product-list"),
-      document.querySelector(".cart-total")
+      document.querySelector(".cart-total"),
     );
 
     // Initialize the cart display
