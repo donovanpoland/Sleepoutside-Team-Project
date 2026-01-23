@@ -65,11 +65,16 @@ function deleteItem(e) {
 // insert header and footer - wait for it to finish before updating cart count
 document.addEventListener("DOMContentLoaded", () => {
   loadHeaderFooter().then(() => {
-    // other startup code
+    // Initialize the ShoppingCart class
+    const cart = new ShoppingCart(
+      document.querySelector(".product-list"),
+      document.querySelector(".cart-total")
+    );
+
+    // Initialize the cart display
+    cart.init();
+
     // update cart count after header is loaded
     updateCartCount();
-
-    // display cart items
-    renderCartContents();
   });
 });
