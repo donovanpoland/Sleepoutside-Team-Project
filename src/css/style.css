@@ -90,7 +90,7 @@ p {
   margin-top: -1.3em;
 }
 
-.logo--square > div {
+.logo--square>div {
   margin-top: -1.7em;
 }
 
@@ -298,4 +298,21 @@ button {
 footer {
   font-size: var(--small-font);
   padding: 1em;
+}
+
+/* Cart icon animation */
+@keyframes bounce {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+.cart svg.bounce-animation {
+  animation: bounce 0.6s ease-in-out;
 }
