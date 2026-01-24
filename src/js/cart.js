@@ -33,7 +33,7 @@ function cartItemTemplate(item, index) {
   <button class="cart-card__delete" data-index="${index}" title="Remove item">❌</button>
   <a href="#" class="cart-card__image">
     <img
-      src="${item.Image}"
+      src="${item.Images.PrimaryMedium}"
       alt="${item.Name}"
     />
   </a>
