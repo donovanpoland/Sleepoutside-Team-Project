@@ -67,14 +67,13 @@ export function notifyCartChange() {
   window.dispatchEvent(new Event('cartUpdated'));
 }
 
-export async function loadHeaderFooter(){
-  // Add header to page
-  const headerTemplate = await loadTemplate("../partials/header.html");
+export async function loadHeaderFooter() {
+  const headerTemplate = await loadTemplate("/partials/header.html");
   const headerElement = document.querySelector("#dy-header");
   renderWithTemplate(headerTemplate, headerElement);
-  
-  // Add header to page
-  const footerTemplate = await loadTemplate("../partials/footer.html");
+
+  const footerTemplate = await loadTemplate("/partials/footer.html");
   const footerElement = document.querySelector("#dy-footer");
   renderWithTemplate(footerTemplate, footerElement);
 }
+

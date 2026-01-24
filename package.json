@@ -5,6 +5,7 @@
   "main": "main.js",
   "type": "module",
   "scripts": {
+    "dev": "vite",
     "start": "vite",
     "build": "vite build --emptyOutDir",
     "lint": "eslint *.js src/**/*.js",
