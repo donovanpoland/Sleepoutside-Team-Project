@@ -90,7 +90,7 @@ p {
   margin-top: -1.3em;
 }
 
-.logo--square > div {
+.logo--square>div {
   margin-top: -1.7em;
 }
 
@@ -298,11 +298,4 @@ button {
 footer {
   font-size: var(--small-font);
   padding: 1em;
-}
-
-/****** Add customizable alert to index.html ****/
-.alert-list p {
-  font-weight: 600;
-  text-align: center;
-  letter-spacing: 0.5px;
 }

@@ -35,8 +35,23 @@ export default class ProductDetails {
         }
         // Save back to storage
         setLocalStorage("so-cart", cartItems);
+        // Trigger cart icon animation
+        this.animateCartIcon();
         // Notify all pages that cart has changed
         notifyCartChange();
+    }
+
+    animateCartIcon() {
+        // Find the cart SVG icon
+        const cartSvg = document.querySelector('.cart svg');
+        if (cartSvg) {
+            // Add the animation class
+            cartSvg.classList.add('bounce-animation');
+            // Remove the class after animation completes so it can be triggered again
+            setTimeout(() => {
+                cartSvg.classList.remove('bounce-animation');
+            }, 600); // Match the animation duration
+        }
     }
 
     renderProductDetails() {
