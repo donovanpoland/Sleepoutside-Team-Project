@@ -2,14 +2,15 @@ import ProductData from "./ProductData.mjs";
 import ProductList from "./ProductList.mjs";
 import { updateCartCount, loadHeaderFooter, getParam } from "./utils.mjs";
 
-/* Get category from URL parameter, default to "tents"
+// Get category from URL parameter, default to "tents"
 const category = getParam("category") || "tents";
 const categoryTitle = category.charAt(0).toUpperCase() + category.slice(1);
 
 const dataSource = new ProductData(category);
 const element = document.querySelector(".product-list");
-const productList = new ProductList(categoryTitle, dataSource, element);
-*/
+const myList = new ProductList(category, dataSource, element);
+myList.categoryTitle = categoryTitle;
+
 // Listen for cart updates from other pages
 window.addEventListener("cartUpdated", updateCartCount);
 
@@ -19,6 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // other startup code
     // update cart count after header is loaded
     updateCartCount();
-    //productList.init();
+    myList.init();
   });
 });

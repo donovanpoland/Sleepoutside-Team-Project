@@ -94,6 +94,41 @@ p {
   margin-top: -1.7em;
 }
 
+/* Categories menu */
+.categories {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  list-style: none;
+  padding: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.categories a {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--dark-grey);
+  transition: transform 0.2s ease;
+}
+
+.categories a:hover {
+  transform: scale(1.1);
+}
+
+.categories img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 0.5rem;
+}
+
+.categories p {
+  padding: 0;
+  font-weight: bold;
+  text-align: center;
+}
+
 /* utility classes */
 .highlight {
   color: var(--tertiary-color);
