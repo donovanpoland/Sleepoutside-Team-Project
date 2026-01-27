@@ -24,8 +24,15 @@ export default class ProductDetails {
     addProductToCart() {
         // Get cart items from local storage or init an empty array
         const cartItems = getLocalStorage("so-cart") || [];
-        // Add product to cart
-        cartItems.push(this.product);
+
+        const existingItem = cartItems.find((item) => item.Id == this.product.Id);
+
+        if (existingItem) {
+
+            existingItem.quantity = (existingItem.quantity || 1) + 1;
+        } else {
+            cartItems.push({...this.product, quantity: 1 });
+        }
         // Save back to storage
         setLocalStorage("so-cart", cartItems);
         // Notify all pages that cart has changed
