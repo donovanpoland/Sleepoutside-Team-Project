@@ -299,3 +299,10 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+
+/****** Add customizable alert to index.html ****/
+.alert-list p {
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
