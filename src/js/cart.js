@@ -7,9 +7,12 @@ import {
 
 function renderCartContents() {
   // Get cart from local storage
-  const cartItems = getLocalStorage("so-cart") ||[];
+  const cartItems = getLocalStorage("so-cart") || [];
   // Get total
-  const total = cartItems.reduce((sum, item) => sum + item.FinalPrice * (item.quantity || 1), 0);
+  const total = cartItems.reduce(
+    (sum, item) => sum + item.FinalPrice * (item.quantity || 1),
+    0,
+  );
   // Get full cart item and display
   const htmlItems = cartItems.map((item, index) =>
     cartItemTemplate(item, index),
