@@ -1,11 +1,5 @@
 import { getLocalStorage } from "./utils.mjs";
 
-function renderCartContents() {
-  const cartItems = getLocalStorage("so-cart");
-  const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-  document.querySelector(".product-list").innerHTML = htmlItems.join("");
-}
-
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
@@ -23,6 +17,26 @@ function cartItemTemplate(item) {
 </li>`;
 
   return newItem;
+}
+
+function calculateCartTotal() {
+  const cartItems = getLocalStorage("so-cart");
+
+  if (!cartItems || cartItems.length === 0) {
+    return; // this won't show total if cart is empty
+  }
+
+  const total = cartItems.reduce((sum, item) => sum + item.FinalPrice, 0);
+  document.getElementById("cart-total-value").textContent = `$${total.toFixed(2)}`; // displays total
+  document.querySelector(".cart-footer").classList.remove("hide");
+}
+
+function renderCartContents() {
+  const cartItems = getLocalStorage("so-cart");
+  const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+  document.querySelector(".product-list").innerHTML = htmlItems.join("");
+
+  calculateCartTotal(); 
 }
 
 renderCartContents();
