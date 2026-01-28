@@ -90,7 +90,7 @@ p {
   margin-top: -1.3em;
 }
 
-.logo--square>div {
+.logo--square > div {
   margin-top: -1.7em;
 }
 
@@ -309,7 +309,6 @@ footer {
 
 /* Cart icon animation */
 @keyframes bounce {
-
   0%,
   100% {
     transform: scale(1);
