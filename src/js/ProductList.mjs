@@ -30,27 +30,15 @@ export default class ProductList {
     document.querySelector(".title").textContent = this.categoryTitle;
   }
 
-    async init() {
-        const list = await this.dataSource.getData();
-        this.renderList(list);
-    }// end inti method
+  async init() {
+    const list = await this.dataSource.getData();
+    this.renderList(list);
+  }// end inti method
 
 
-    renderList(list) {
-        renderListWithTemplate(productCardTemplate, this.listElement, list);
-    }
+  renderList(list) {
+    renderListWithTemplate(productCardTemplate, this.listElement, list);
+  }
 
 }// end class
 
-function productCardTemplate(product) {
-  return `
-    <li class="product-card">
-      <a href="product_pages/?product=${product.Id}">
-        <img src="${product.Image}" alt="${product.Name}">
-        <h2>${product.Brand.Name}</h2>
-        <h3>${product.Name}</h3>
-        <p class="product-card__price">$${product.FinalPrice}</p>
-      </a>
-    </li>
-    `;
-}
