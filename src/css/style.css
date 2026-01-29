@@ -322,3 +322,51 @@ footer {
 .cart svg.bounce-animation {
   animation: bounce 0.6s ease-in-out;
 }
+
+fieldset {
+  margin-bottom: 1.5rem;
+  border: 1px solid #ccc;
+  padding: 1rem;
+}
+ 
+legend {
+  font-weight: bold;
+  padding: 0 0.5rem;
+}
+ 
+label {
+  display: block;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+ 
+input {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+ 
+button {
+  margin-top: 1rem;
+  padding: 0.75rem 2rem;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+ 
+button:hover {
+  background: #0056b3;
+}
+ 
+#order-summary {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 4px;
+}
