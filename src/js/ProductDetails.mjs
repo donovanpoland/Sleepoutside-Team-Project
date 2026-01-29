@@ -25,14 +25,17 @@ export default class ProductDetails {
         // Get cart items from local storage or init an empty array
         const cartItems = getLocalStorage("so-cart") || [];
 
-        const existingItem = cartItems.find((item) => item.Id == this.product.Id);
+        const existingItem = cartItems.find((item) => item.Id === this.product.Id);
 
         if (existingItem) {
 
             existingItem.quantity = (existingItem.quantity || 1) + 1;
         } else {
-            cartItems.push({...this.product, quantity: 1 });
+            cartItems.push({ ...this.product, quantity: 1 });
         }
+
+        //cartItems.push(this.product);
+
         // Save back to storage
         setLocalStorage("so-cart", cartItems);
         // Trigger cart icon animation
@@ -76,18 +79,26 @@ export default class ProductDetails {
 
 
 function productDetailsTemplate(product) {
-    document.querySelector('h2').textContent = product.Brand.Name;
-    document.querySelector('h3').textContent = product.NameWithoutBrand;
+    document.querySelector('h2').textContent = product.Category.charAt(0).toUpperCase() + product.Category.slice(1);
+    document.querySelector("#p-brand").textContent = product.Brand.Name;
+    document.querySelector("#p-name").textContent = product.NameWithoutBrand;
 
-    const productImage = document.getElementById('productImage');
-    productImage.src = product.Image;
+    const productImage = document.querySelector('#productImage');
+    productImage.src = product.Images.PrimaryExtraLarge;
     productImage.alt = product.NameWithoutBrand;
 
-    document.getElementById('productPrice').textContent = `$${product.FinalPrice}`;
-    document.getElementById('productColor').textContent = product.Colors[0].ColorName;
-    document.getElementById('productDesc').innerHTML = product.DescriptionHtmlSimple;
+    document.querySelector("#productPrice").textContent = `$${product.FinalPrice.toFixed(2)}`;
+    document.querySelector("#productColor").textContent = product.Colors[0].ColorName;
+    document.querySelector("#productDesc").innerHTML = product.DescriptionHtmlSimple;
 
-    document.getElementById('addToCart').dataset.id = product.Id;
+    document.querySelector("#addToCart").dataset.id = product.Id;
+
 }
 
 updateCartCount();
+
+/*    document.getElementById('productPrice').textContent = `$${product.FinalPrice}`;
+    document.getElementById('productColor').textContent = product.Colors[0].ColorName;
+    document.getElementById('productDesc').innerHTML = product.DescriptionHtmlSimple;
+
+    document.getElementById('addToCart').dataset.id = product.Id;*/

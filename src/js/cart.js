@@ -4,6 +4,7 @@ import {
   updateCartCount,
   loadHeaderFooter,
 } from "./utils.mjs";
+import ShoppingCart from "./ShoppingCart.mjs";
 
 function renderCartContents() {
   // Get cart from local storage
@@ -13,6 +14,7 @@ function renderCartContents() {
     (sum, item) => sum + item.FinalPrice * (item.quantity || 1),
     0,
   );
+
   // Get full cart item and display
   const htmlItems = cartItems.map((item, index) =>
     cartItemTemplate(item, index),
@@ -36,7 +38,7 @@ function cartItemTemplate(item, index) {
   <button class="cart-card__delete" data-index="${index}" title="Remove item">❌</button>
   <a href="#" class="cart-card__image">
     <img
-      src="${item.Image}"
+      src="${item.Images.PrimaryMedium}"
       alt="${item.Name}"
     />
   </a>
