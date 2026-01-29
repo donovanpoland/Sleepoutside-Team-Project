@@ -5,7 +5,7 @@ function cartItemTemplate(item, index) {
     const newItem = `<li class="cart-card divider">
     <button class="cart-card__delete" data-index="${index}" title="Remove item">❌</button>
     <a href="#" class="cart-card__image">
-      <img src="${item.Image}" alt="${item.Name}" />
+      <img src="${item.Images.PrimaryMedium}" alt="${item.Name}" />
     </a>
     <a href="#">
       <h2 class="card__name">${item.Name}</h2>
@@ -22,6 +22,7 @@ export default class ShoppingCart {
     constructor(cartElement, cartTotalElement) {
         this.cartElement = cartElement;
         this.cartTotalElement = cartTotalElement;
+        this.total = 0;
     }
 
     async init() {
@@ -44,10 +45,11 @@ export default class ShoppingCart {
 
     updateCartTotal(cartItems) {
         // Calculate total
-        const total = cartItems.reduce((sum, item) => sum + item.FinalPrice, 0);
+        const total = cartItems.reduce((sum, item) => sum + item.FinalPrice * (item.quantity || 1), 0);
         if (this.cartTotalElement) {
             this.cartTotalElement.textContent = `Total: $${total.toFixed(2)}`;
         }
+        setLocalStorage("subtotal", total.toFixed(2))
     }
 
     deleteItem(index) {

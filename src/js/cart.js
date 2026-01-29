@@ -9,11 +9,10 @@ import ShoppingCart from "./ShoppingCart.mjs";
 function renderCartContents() {
   // Get cart from local storage
   const cartItems = getLocalStorage("so-cart") || [];
-  // Get total
-  const total = cartItems.reduce(
-    (sum, item) => sum + item.FinalPrice * (item.quantity || 1),
-    0,
-  );
+  // Update total
+  if (cartItems) {
+    ShoppingCart.updateCartTotal();
+  }
 
   // Get full cart item and display
   const htmlItems = cartItems.map((item, index) =>
@@ -25,11 +24,7 @@ function renderCartContents() {
   document.querySelectorAll(".cart-card__delete").forEach((btn) => {
     btn.addEventListener("click", deleteItem);
   });
-  // Update total
-  if (cartItems) {
-    document.querySelector(".cart-total").textContent =
-      `Total: $${total.toFixed(2)}`;
-  }
+
 }
 
 // Template for a cart item with index for deletion

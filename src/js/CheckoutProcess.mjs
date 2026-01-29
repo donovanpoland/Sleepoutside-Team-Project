@@ -14,18 +14,20 @@ export default class CheckoutProcess{
 
   init() {
     this.list = getLocalStorage(this.key);
-    this.calculateItemSummary();
+    //this.calculateItemSummary();
   }
 
   calculateItemSubTotal() {
     // calculate and display the total dollar amount of the items in the cart, and the number of items.
-    return subtotal = this.list.reduce(
-        (sum, item) => sum + item.FinalPrice * (item.Quantity), 0,);
+    const subtotal = parseFloat(getLocalStorage("subtotal"));
+    console.log(typeof(subtotal));
+    return subtotal;
   }
 
   calculateOrderTotal() {
     // calculate the tax and shipping amounts. Add those to the cart total to figure out the order total
-    this.tax = (this.itemTotal * 0.06);
+    this.tax = (calculateItemSubTotal() * 0.06);
+    console.log(tax);
     this.shipping = 10.00 + ((this.list.length() -1) * 2);
     this.orderTotal = this.shipping + this.tax;
 
@@ -35,9 +37,12 @@ export default class CheckoutProcess{
 
   displayOrderTotals() {
     // once the totals are all calculated display them in the order summary page
+    const subtotalid = document.querySelector(`${this.outputSelector} #subtotal`);
     const tax = document.querySelector(`${this.outputSelector} #tax`);
 
-
+    const subtotal = calculateItemSubTotal();
+    
+    subtotalid.innerText = `$${subtotal}`;
     tax.innerText = `$${this.tax.toFixed(2)}`;
   }
 }
