@@ -24,7 +24,6 @@ function renderCartContents() {
   document.querySelectorAll(".cart-card__delete").forEach((btn) => {
     btn.addEventListener("click", deleteItem);
   });
-
 }
 
 // Template for a cart item with index for deletion
