@@ -1,9 +1,9 @@
 import { getParam, updateCartCount, loadHeaderFooter } from "./utils.mjs";
-import ProductData from "./ProductData.mjs";
+import ExternalServices from "./ExternalServices.mjs";
 import ProductDetails from "./ProductDetails.mjs";
 
 const category = getParam("category"); // to ensure utils is loaded
-const dataSource = new ProductData(category);
+const dataSource = new ExternalServices(category);
 const productId = getParam("product");
 const product = new ProductDetails(productId, dataSource);
 
