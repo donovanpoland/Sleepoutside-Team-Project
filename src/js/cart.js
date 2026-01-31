@@ -9,10 +9,11 @@ import ShoppingCart from "./ShoppingCart.mjs";
 function renderCartContents() {
   // Get cart from local storage
   const cartItems = getLocalStorage("so-cart") || [];
-  // Update total
-  if (cartItems) {
-    ShoppingCart.updateCartTotal();
-  }
+  // Get total
+  const total = cartItems.reduce(
+    (sum, item) => sum + item.FinalPrice * (item.quantity || 1),
+    0,
+  );
 
   // Get full cart item and display
   const htmlItems = cartItems.map((item, index) =>
