@@ -6,6 +6,7 @@
     <title>Sleep Outside | Home</title>
     <link rel="stylesheet" href="/css/style.css" />
     <script src="js/main.js" type="module"></script>
+    <script src="/js/newsletter.js" type="module"></script>
   </head>
 
   <body>
@@ -63,6 +64,21 @@
             </a>
           </li>
         </ul>
+      </section>
+      <section class="newsletter">
+        <h2>Join our newsletter</h2>
+        <form id="newsletterForm">
+          <label for="newsletterEmail">Email</label>
+          <input
+            type="email"
+            id="newsletterEmail"
+            name="email"
+            placeholder="emailhere@example.com"
+            required
+          />
+          <button type="submit">Sign Up</button>
+          <p id="newsletterMsg"></p>
+        </form>
       </section>
     </main>
     <footer id="dy-footer">

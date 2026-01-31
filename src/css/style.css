@@ -314,6 +314,34 @@ button {
   grid-column: 3/4;
 }
 
+/* News Letter Sign Up Section */
+
+.newsletter {
+  max-width: 800px;
+  margin: 2rem auto;
+  margin-top: 3rem;
+  padding: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.newsletter form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.newsletter input[type="email"] {
+  max-width: 400px;
+}
+
+.newsletter button {
+  display: inline-block;
+  margin-left: 0;
+  margin-right: auto;
+  align-self: flex-start;
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
