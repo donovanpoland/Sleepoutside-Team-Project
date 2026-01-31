@@ -30,6 +30,21 @@ export function getParam(param) {
   return product;
 }
 
+// Add product to cart (dedupe by Id and update quantity)
+export function addToCart(product, qty = 1) {
+  const cartItems = getLocalStorage("so-cart") || [];
+  const existing = cartItems.find((item) => String(item.Id) === String(product.Id));
+  if (existing) {
+    existing.quantity = (existing.quantity || 1) + qty;
+  } else {
+    cartItems.push({ ...product, quantity: qty });
+  }
+  setLocalStorage("so-cart", cartItems);
+  // Notify listeners and update badge
+  notifyCartChange();
+  updateCartCount();
+}
+
 // render a list of items using a template function
 export function renderListWithTemplate(template, parentElement, list, position = "afterbegin", clear = false) {
   const htmlStrings = list.map(template);
@@ -40,14 +55,14 @@ export function renderListWithTemplate(template, parentElement, list, position =
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 }
 
-function renderWithTemplate(template, parentElement, data, callback){
+function renderWithTemplate(template, parentElement, data, callback) {
   parentElement.innerHTML = template;
-  if(callback) {
+  if (callback) {
     callback(data);
   }
 }
 
-async function loadTemplate(path){
+async function loadTemplate(path) {
   const res = await fetch(path);
   const template = await res.text();
   return template;
@@ -56,7 +71,10 @@ async function loadTemplate(path){
 // update cart count badge for shopping cart
 export function updateCartCount() {
   const cartItems = getLocalStorage("so-cart");
-  const count = cartItems ? cartItems.length : 0;
+  // count total quantity not distinct items
+  const count = cartItems
+    ? cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0)
+    : 0;
   const cartCountElement = qs(".cart-count");
   if (cartCountElement) {
     cartCountElement.textContent = count;
@@ -67,12 +85,12 @@ export function notifyCartChange() {
   window.dispatchEvent(new Event('cartUpdated'));
 }
 
-export async function loadHeaderFooter(){
+export async function loadHeaderFooter() {
   // Add header to page
   const headerTemplate = await loadTemplate("../partials/header.html");
   const headerElement = document.querySelector("#dy-header");
   renderWithTemplate(headerTemplate, headerElement);
-  
+
   // Add header to page
   const footerTemplate = await loadTemplate("../partials/footer.html");
   const footerElement = document.querySelector("#dy-footer");

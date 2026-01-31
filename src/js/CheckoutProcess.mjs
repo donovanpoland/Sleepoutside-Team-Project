@@ -23,9 +23,10 @@ function packageItems(items) {
       id: item.Id,
       price: item.FinalPrice,
       name: item.Name,
-      quantity: 1,
+      quantity: item.quantity || 1,
     };
   });
+  console.log(simplifiedItems);
   return simplifiedItems;
 }
 
@@ -54,11 +55,12 @@ export default class CheckoutProcess {
     const itemNumElement = document.querySelector(
       this.outputSelector + " #num-items"
     );
-    itemNumElement.innerText = this.list.length;
+    // calculate the number of items in the cart
+    itemNumElement.innerText = this.list.map((item) => item.quantity || 1).reduce((sum, item) => sum + item, 0) || 0;
     // calculate the total of all the items in the cart
-    const amounts = this.list.map((item) => item.FinalPrice);
+    const amounts = this.list.map((item) => item.FinalPrice * (item.quantity || 1));
     this.itemTotal = amounts.reduce((sum, item) => sum + item);
-    summaryElement.innerText = `$${this.itemTotal}`;;
+    summaryElement.innerText = `$${this.itemTotal.toFixed(2)}`;
   }
 
   //calculateItemSubTotal() {

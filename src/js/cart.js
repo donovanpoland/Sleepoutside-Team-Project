@@ -50,11 +50,18 @@ function cartItemTemplate(item, index) {
 // Delete item from cart by index in local storage and re-render cart
 function deleteItem(e) {
   const itemIndex = e.target.dataset.index;
-  let cartItems = getLocalStorage("so-cart");
-  cartItems.splice(itemIndex, 1); // Remove 1 item at the specified index
+  let cartItems = getLocalStorage("so-cart") || [];
+  const idx = Number(itemIndex);
+  const item = cartItems[idx];
+  if (!item) return;
+  if ((item.quantity || 1) > 1) {
+    item.quantity = (item.quantity || 1) - 1;
+  } else {
+    cartItems.splice(idx, 1);
+  }
   setLocalStorage("so-cart", cartItems);
   renderCartContents();
-  //update cart count badge after item is deleted
+  // update cart count badge after item is deleted
   updateCartCount();
 }
 

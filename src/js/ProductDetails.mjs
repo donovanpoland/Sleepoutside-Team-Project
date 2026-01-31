@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage, updateCartCount, notifyCartChange } from "./utils.mjs";
+import { addToCart, updateCartCount } from "./utils.mjs";
 
 
 
@@ -22,26 +22,10 @@ export default class ProductDetails {
     }
 
     addProductToCart() {
-        // Get cart items from local storage or init an empty array
-        const cartItems = getLocalStorage("so-cart") || [];
-
-        const existingItem = cartItems.find((item) => item.Id === this.product.Id);
-
-        if (existingItem) {
-
-            existingItem.quantity = (existingItem.quantity || 1) + 1;
-        } else {
-            cartItems.push({ ...this.product, quantity: 1 });
-        }
-
-        //cartItems.push(this.product);
-
-        // Save back to storage
-        setLocalStorage("so-cart", cartItems);
+        // Use centralized helper to add product (handles dedupe and qty)
+        addToCart(this.product, 1);
         // Trigger cart icon animation
         this.animateCartIcon();
-        // Notify all pages that cart has changed
-        notifyCartChange();
     }
 
     animateCartIcon() {

@@ -54,9 +54,17 @@ export default class ShoppingCart {
 
     deleteItem(index) {
         let cartItems = this.fetchCartItems();
-        cartItems.splice(index, 1);
+        const idx = Number(index);
+        const item = cartItems[idx];
+        if (!item) return;
+        // Decrement quantity if more than 1, otherwise remove the item
+        if ((item.quantity || 1) > 1) {
+            item.quantity = (item.quantity || 1) - 1;
+        } else {
+            cartItems.splice(idx, 1);
+        }
         setLocalStorage("so-cart", cartItems);
-        // Re-render and re-attach listeners after deletion
+        // Re-render and re-attach listeners after update
         this.renderCart(cartItems);
         this.attachDeleteListeners();
         updateCartCount();
