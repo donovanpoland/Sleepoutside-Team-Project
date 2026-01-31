@@ -90,7 +90,7 @@ p {
   margin-top: -1.3em;
 }
 
-.logo--square > div {
+.logo--square>div {
   margin-top: -1.7em;
 }
 
@@ -342,8 +342,17 @@ footer {
   letter-spacing: 0.5px;
 }
 
+/* Alert message styles on checkout page */
+.alert {
+  background-color: #ffdddd;
+  border-left: 6px solid #f44336;
+  margin-bottom: 15px;
+  padding: 10px 15px;
+}
+
 /* Cart icon animation */
 @keyframes bounce {
+
   0%,
   100% {
     transform: scale(1);
