@@ -42,7 +42,7 @@ export default class CheckoutProcess {
   }
 
   init() {
-    this.list = getLocalStorage(this.key);
+    this.list = getLocalStorage(this.key) || [];
     this.calculateItemSummary();
   }
 
@@ -55,12 +55,16 @@ export default class CheckoutProcess {
     const itemNumElement = document.querySelector(
       this.outputSelector + " #num-items"
     );
-    // calculate the number of items in the cart
-    itemNumElement.innerText = this.list.map((item) => item.quantity || 1).reduce((sum, item) => sum + item, 0) || 0;
+    const list = this.list || [];
+    // calculate the number of items in the cart (sum quantities)
+    const totalItems = list
+      .map((item) => item.quantity || 1)
+      .reduce((sum, qty) => sum + qty, 0);
+    if (itemNumElement) itemNumElement.innerText = totalItems || 0;
     // calculate the total of all the items in the cart
-    const amounts = this.list.map((item) => item.FinalPrice * (item.quantity || 1));
-    this.itemTotal = amounts.reduce((sum, item) => sum + item);
-    summaryElement.innerText = `$${this.itemTotal.toFixed(2)}`;
+    const amounts = list.map((item) => (item.FinalPrice || 0) * (item.quantity || 1));
+    this.itemTotal = amounts.length ? amounts.reduce((sum, amt) => sum + amt, 0) : 0;
+    if (summaryElement) summaryElement.innerText = `$${this.itemTotal.toFixed(2)}`;
   }
 
   //calculateItemSubTotal() {
@@ -111,16 +115,18 @@ export default class CheckoutProcess {
     try {
       const response = await services.checkout(order);
       console.log("Checkout result:", response);
-      // on success redirect to the checkout success page
-      window.location.href = "./success.html";
-      // clear the cart
+      // on success clear the cart and redirect to the existing success page
       setLocalStorage(this.key, []);
+      // ensure header/footer update and badge update fire
+      removeAllAlerts();
+      // existing filename in repo is "sucess.html" (single c), so redirect to that
+      location.assign("../checkout/sucess.html");
     } catch (error) {
       removeAllAlerts();
       for (let message in error.message) {
         alertMessage(error.message[message]);
       }
-      console.error("Error during checkout:", error);
+      console.log(error);
     }
   }
 }
