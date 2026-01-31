@@ -18,6 +18,10 @@ document.addEventListener("DOMContentLoaded", () => {
     //add event listener for submit button
     document.querySelector("#checkoutSubmit").addEventListener("click", (e) => {
       e.preventDefault();
+      const myForm = document.forms[0];
+      const check_status = myForm.checkValidity();
+      myForm.reportValidity();
+      if (check_status)
       order.checkout();
     });
     // update cart count after header is loaded
