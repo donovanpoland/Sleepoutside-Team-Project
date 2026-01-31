@@ -1,29 +1,25 @@
-
-
 const form = document.getElementById("newsletterForm");
 const emailInput = document.getElementById("newsletterEmail");
 const message = document.getElementById("newsletterMsg");
 
-
 form.addEventListener("submit", function (event) {
-    event.preventDefault(); 
+  event.preventDefault();
 
-    const email = emailInput.value;
+  const email = emailInput.value;
 
-    let emails = localStorage.getItem("newsletterEmails");
+  let emails = localStorage.getItem("newsletterEmails");
 
-    if (emails) {
-        emails = JSON.parse(emails);
-    } else {
-        emails = [];
-    }
+  if (emails) {
+    emails = JSON.parse(emails);
+  } else {
+    emails = [];
+  }
 
-    emails.push(email);
+  emails.push(email);
 
-    localStorage.setItem("newsletterEmails", JSON.stringify(emails));
+  localStorage.setItem("newsletterEmails", JSON.stringify(emails));
 
+  message.textContent = "Thanks for signing up!";
 
-    message.textContent = "Thanks for signing up!";
-
-    emailInput.value = "";
+  emailInput.value = "";
 });

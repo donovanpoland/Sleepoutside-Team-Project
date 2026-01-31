@@ -314,7 +314,6 @@ button {
   grid-column: 3/4;
 }
 
-
 /* News Letter Sign Up Section */
 
 .newsletter {
@@ -342,10 +341,6 @@ button {
   margin-right: auto;
   align-self: flex-start;
 }
-
-
-
-
 
 @media screen and (min-width: 500px) {
   body {
