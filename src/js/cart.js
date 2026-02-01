@@ -4,6 +4,7 @@ import {
   updateCartCount,
   loadHeaderFooter,
 } from "./utils.mjs";
+import ShoppingCart from "./ShoppingCart.mjs";
 
 function renderCartContents() {
   // Get cart from local storage
@@ -30,26 +31,6 @@ function renderCartContents() {
   }
 }
 
-// Template for a cart item with index for deletion
-function cartItemTemplate(item, index) {
-  const newItem = `<li class="cart-card divider">
-  <button class="cart-card__delete" data-index="${index}" title="Remove item">❌</button>
-  <a href="#" class="cart-card__image">
-    <img
-      src="${item.Image}"
-      alt="${item.Name}"
-    />
-  </a>
-  <a href="#">
-    <h2 class="card__name">${item.Name}</h2>
-  </a>
-  <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: ${item.quantity || 1}</p>
-  <p class="cart-card__price">$${item.FinalPrice}</p>
-</li>`;
-
-  return newItem;
-}
 
 // Delete item from cart by index in local storage and re-render cart
 function deleteItem(e) {

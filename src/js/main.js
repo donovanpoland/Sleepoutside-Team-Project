@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // other startup code
     // update cart count after header is loaded
     updateCartCount();
-    productList.init();
     alert.init();
   });
 });
