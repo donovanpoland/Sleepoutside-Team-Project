@@ -395,6 +395,10 @@ footer {
   animation: bounce 0.6s ease-in-out;
 }
 
+#checkout-form{
+  padding: 1rem;
+}
+
 fieldset {
   margin-bottom: 1.5rem;
   border: 1px solid #ccc;
@@ -421,7 +425,11 @@ input {
   border-radius: 4px;
 }
 
-button {
+button, #checkout-btn{
+  height: 44px;
+  max-width: 160px;
+  justify-content: center;
+  display: flex;
   margin-top: 1rem;
   padding: 0.75rem 2rem;
   background: #007bff;
@@ -436,7 +444,10 @@ button:hover {
   background: #0056b3;
 }
 
-#order-summary {
+.order-summary {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: .5rem;
   margin-top: 2rem;
   padding: 1rem;
   background: #f8f9fa;

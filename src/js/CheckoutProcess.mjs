@@ -44,6 +44,7 @@ export default class CheckoutProcess {
   init() {
     this.list = getLocalStorage(this.key) || [];
     this.calculateItemSummary();
+    this.calculateOrderTotal();
   }
 
   calculateItemSummary() {
@@ -67,18 +68,13 @@ export default class CheckoutProcess {
     if (summaryElement) summaryElement.innerText = `$${this.itemTotal.toFixed(2)}`;
   }
 
-  //calculateItemSubTotal() {
-  //  // calculate and display the total dollar amount of the items in the cart, and the number of items.
-  //  const subtotal = parseFloat(getLocalStorage("subtotal"));
-  //  console.log(typeof (subtotal));
-  //  return subtotal;
-  //}
 
   calculateOrderTotal() {
     // calculate the shipping and tax amounts. 
     // Then use them to along with the cart total to figure out the order total
     this.tax = (this.itemTotal * .06);
-    this.shipping = 10 + (this.list.length - 1) * 2;
+    const totalItems = this.list.map((item) => item.quantity || 1).reduce((sum, qty) => sum + qty, 0);
+    this.shipping = totalItems > 0 ? 10 + (totalItems - 1) * 2 : 0;
     this.orderTotal = (
       parseFloat(this.itemTotal) +
       parseFloat(this.tax) +
