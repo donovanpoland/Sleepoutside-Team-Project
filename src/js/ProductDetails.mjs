@@ -43,19 +43,6 @@ export default class ProductDetails {
         notifyCartChange();
     }
 
-    animateCartIcon() {
-        // Find the cart SVG icon
-        const cartSvg = document.querySelector('.cart svg');
-        if (cartSvg) {
-            // Add the animation class
-            cartSvg.classList.add('bounce-animation');
-            // Remove the class after animation completes so it can be triggered again
-            setTimeout(() => {
-                cartSvg.classList.remove('bounce-animation');
-            }, 600); // Match the animation duration
-        }
-    }
-
     renderProductDetails() {
         productDetailsTemplate(this.product);
     }
@@ -80,9 +67,3 @@ function productDetailsTemplate(product) {
 }
 
 updateCartCount();
-
-/*    document.getElementById('productPrice').textContent = `$${product.FinalPrice}`;
-    document.getElementById('productColor').textContent = product.Colors[0].ColorName;
-    document.getElementById('productDesc').innerHTML = product.DescriptionHtmlSimple;
-
-    document.getElementById('addToCart').dataset.id = product.Id;*/

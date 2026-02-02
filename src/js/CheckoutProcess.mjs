@@ -26,7 +26,6 @@ function packageItems(items) {
       quantity: item.quantity || 1,
     };
   });
-  console.log(simplifiedItems);
   return simplifiedItems;
 }
 

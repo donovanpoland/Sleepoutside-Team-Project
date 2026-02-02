@@ -3,16 +3,17 @@ import { renderListWithTemplate, getLocalStorage, setLocalStorage, updateCartCou
 // Template for a cart item
 function cartItemTemplate(item, index) {
     const newItem = `<li class="cart-card divider">
-    <button class="cart-card__delete" data-index="${index}" title="Remove item">❌</button>
-    <a href="#" class="cart-card__image">
+    
+    <a href="#" class="cart-card-image">
       <img src="${item.Images.PrimaryMedium}" alt="${item.Name}" />
     </a>
     <a href="#">
-      <h2 class="card__name">${item.Name}</h2>
+      <h2 class="card-name">${item.Name}</h2>
     </a>
-    <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-    <p class="cart-card__quantity">qty: ${item.quantity || 1}</p>
-    <p class="cart-card__price">$${item.FinalPrice}</p>
+    <p class="cart-card-color">${item.Colors[0].ColorName}</p>
+    <p class="cart-card-quantity">qty: ${item.quantity || 1}</p>
+    <button class="cart-card-delete" data-index="${index}" title="Remove item">❌</button>
+    <p class="cart-card-price">$${item.FinalPrice}</p>
   </li>`;
     // Returning the constructed HTML string
     return newItem;

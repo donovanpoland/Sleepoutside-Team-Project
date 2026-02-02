@@ -17,7 +17,6 @@ export default class ProductList {
     // Being able to define these things when you use the class will make it very flexible
     this.category = category;
     this.dataSource = dataSource;
-    console.log(this.dataSource);
     this.listElement = listElement;
     this.categoryTitle = category.charAt(0).toUpperCase() + category.slice(1);
   }
@@ -29,12 +28,6 @@ export default class ProductList {
     // set the title based on the category --
     document.querySelector(".title").textContent = this.categoryTitle;
   }
-
-  async init() {
-    const list = await this.dataSource.getData();
-    this.renderList(list);
-  }// end inti method
-
 
   renderList(list) {
     renderListWithTemplate(productCardTemplate, this.listElement, list);
