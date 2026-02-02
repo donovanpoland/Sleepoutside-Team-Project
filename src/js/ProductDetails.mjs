@@ -68,8 +68,77 @@ function productDetailsTemplate(product) {
     document.querySelector("#p-name").textContent = product.NameWithoutBrand;
 
     const productImage = document.querySelector('#productImage');
-    productImage.src = product.Images.PrimaryExtraLarge;
-    productImage.alt = product.NameWithoutBrand;
+    // Build image list: main image then extra images
+    const images = [];
+    if (product.Images && product.Images.PrimaryExtraLarge) images.push(product.Images.PrimaryExtraLarge);
+    if (product.Images && Array.isArray(product.Images.ExtraImages)) {
+        product.Images.ExtraImages.forEach((img) => {
+            if (img && img.Src) images.push(img.Src);
+        });
+    }
+    // fallback
+    if (!images.length && product.Images && product.Images.PrimaryMedium) images.push(product.Images.PrimaryMedium);
+
+    // Ensure main image exists before creating carousel
+    if (!images.length) {
+        productImage.src = '';
+        productImage.alt = product.NameWithoutBrand;
+    } else {
+        // clean up any previous controls/thumbnails
+        const prev = document.querySelector('#img-prev');
+        if (prev) prev.remove();
+        const next = document.querySelector('#img-next');
+        if (next) next.remove();
+        const thumbs = document.querySelector('.product-thumbnails');
+        if (thumbs) thumbs.remove();
+
+        let currentIndex = 0;
+        productImage.src = images[currentIndex];
+        productImage.alt = product.NameWithoutBrand;
+
+        // create prev/next buttons when more than one image
+        if (images.length > 1) {
+            const prevBtn = document.createElement('button');
+            prevBtn.id = 'img-prev';
+            prevBtn.type = 'button';
+            prevBtn.className = 'img-nav';
+            prevBtn.textContent = '◀';
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                productImage.src = images[currentIndex];
+            });
+
+            const nextBtn = document.createElement('button');
+            nextBtn.id = 'img-next';
+            nextBtn.type = 'button';
+            nextBtn.className = 'img-nav';
+            nextBtn.textContent = '▶';
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % images.length;
+                productImage.src = images[currentIndex];
+            });
+
+            productImage.insertAdjacentElement('beforebegin', prevBtn);
+            productImage.insertAdjacentElement('afterend', nextBtn);
+        }
+
+        // thumbnails
+        const thumbsContainer = document.createElement('div');
+        thumbsContainer.className = 'product-thumbnails';
+        images.forEach((src, idx) => {
+            const thumb = document.createElement('img');
+            thumb.src = src;
+            thumb.alt = `${product.NameWithoutBrand} ${idx + 1}`;
+            thumb.className = 'thumb';
+            thumb.style.cursor = 'pointer';
+            thumb.addEventListener('click', () => {
+                currentIndex = idx;
+                productImage.src = images[currentIndex];
+            });
+            thumbsContainer.appendChild(thumb);
+        });
+        productImage.insertAdjacentElement('afterend', thumbsContainer);
+    }
 
     document.querySelector("#productPrice").textContent = `$${product.FinalPrice.toFixed(2)}`;
     document.querySelector("#productColor").textContent = product.Colors[0].ColorName;
