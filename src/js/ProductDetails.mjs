@@ -1,4 +1,4 @@
-import { addToCart, updateCartCount } from "./utils.mjs";
+import { addToCart, updateCartCount, notifyCartChange } from "./utils.mjs";
 
 
 

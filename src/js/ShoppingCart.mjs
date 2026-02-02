@@ -73,11 +73,11 @@ export default class ShoppingCart {
 
     attachDeleteListeners() {
         // Remove old listeners to prevent duplicates
-        document.querySelectorAll(".cart-card__delete").forEach((btn) => {
+        document.querySelectorAll(".cart-card-delete").forEach((btn) => {
             btn.removeEventListener("click", this.handleDeleteClick);
         });
         // Attach fresh listeners
-        document.querySelectorAll(".cart-card__delete").forEach((btn) => {
+        document.querySelectorAll(".cart-card-delete").forEach((btn) => {
             btn.addEventListener("click", (e) => {
                 const itemIndex = e.target.dataset.index;
                 this.deleteItem(itemIndex);
