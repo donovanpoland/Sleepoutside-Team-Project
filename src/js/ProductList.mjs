@@ -1,9 +1,28 @@
-import { renderListWithTemplate } from "./utils.mjs";
+import { renderListWithTemplate, weserv } from "./utils.mjs";
 
 function productCardTemplate(product) {
+  // Dynamic image sizes
+  const images = product.Images || {};
+  const baseUrl =
+    images.PrimaryExtraLarge ||
+    images.PrimaryLarge ||
+    images.PrimaryMedium ||
+    images.PrimarySmall ||
+    product.Image ||
+    "";
+  const imageUrl = baseUrl ? weserv(baseUrl, 320) : "";
+  const srcset = baseUrl
+    ? [
+        `${weserv(baseUrl, 160)} 160w`,
+        `${weserv(baseUrl, 320)} 320w`,
+        `${weserv(baseUrl, 600)} 480w`,
+      ].join(", ")
+    : "";
+  const sizes = "(min-width: 900px) 320px, (min-width: 600px) 260px, 90vw";
+  // Return template
   return `<li class="product-card">
     <a href="/product_pages/index.html?product=${product.Id}">
-      <img src="${product.Images.PrimaryMedium}" alt="Image of ${product.Name}">
+      <img src="${imageUrl}" srcset="${srcset}" sizes="${sizes}" alt="Image of ${product.Name}" title="${product.Name}" loading="lazy">
       <h2 class="card__brand">${product.Brand.Name}</h2>
       <h3 class="card__name">${product.Name}</h3>
       <p class="product-card__price">$${product.FinalPrice}</p>

@@ -1,11 +1,28 @@
-import { renderListWithTemplate, getLocalStorage, setLocalStorage, updateCartCount } from "./utils.mjs";
+import { renderListWithTemplate, getLocalStorage, setLocalStorage, updateCartCount, weserv } from "./utils.mjs";
 
 // Template for a cart item
 function cartItemTemplate(item, index) {
+    const images = item.Images || {};
+    const baseUrl =
+        images.PrimaryExtraLarge ||
+        images.PrimaryLarge ||
+        images.PrimaryMedium ||
+        images.PrimarySmall ||
+        item.Image ||
+        "";
+
+    const imageUrl = baseUrl ? weserv(baseUrl, 150) : "";
+    const srcset = baseUrl
+        ? [
+            `${weserv(baseUrl, 150)} 150w`,
+            `${weserv(baseUrl, 300)} 300w`,
+        ].join(", ")
+        : "";
+    const sizes = "150px";
     const newItem = `<li class="cart-card divider">
     
-    <a href="#" class="cart-card-image">
-      <img src="${item.Images.PrimaryMedium}" alt="${item.Name}" />
+    <a href="/product_pages/index.html?product=${item.Id}" class="cart-card-image">
+      <img src="${imageUrl}" srcset="${srcset}" sizes="${sizes}" alt="${item.Name}" title="${item.Name}" loading="lazy">
     </a>
     <a href="#">
       <h2 class="card-name">${item.Name}</h2>

@@ -125,3 +125,8 @@ export function removeAllAlerts() {
   const alerts = document.querySelectorAll(".alert");
   alerts.forEach((alert) => document.querySelector("main").removeChild(alert));
 }
+
+//Weserv help function - convert income images to webp for beter network download speeds
+export function weserv(url, width) {
+    return `https://images.weserv.nl/?url=${encodeURIComponent(url)}&w=${width}&output=webp`;
+  }
