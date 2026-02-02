@@ -1,4 +1,4 @@
-import { addToCart, updateCartCount, notifyCartChange } from "./utils.mjs";
+import { addToCart, updateCartCount, notifyCartChange, weserv } from "./utils.mjs";
 
 
 
@@ -53,10 +53,29 @@ function productDetailsTemplate(product) {
     document.querySelector('h2').textContent = product.Category.charAt(0).toUpperCase() + product.Category.slice(1);
     document.querySelector("#p-brand").textContent = product.Brand.Name;
     document.querySelector("#p-name").textContent = product.NameWithoutBrand;
-
+    const images = product.Images || {};
+    const baseUrl =
+      images.PrimaryExtraLarge ||
+      images.PrimaryLarge ||
+      images.PrimaryMedium ||
+      images.PrimarySmall ||
+      product.Image ||
+      "";
     const productImage = document.querySelector('#productImage');
-    productImage.src = product.Images.PrimaryExtraLarge;
+if (baseUrl) {
+      productImage.src = weserv(baseUrl, 600); // main fallback
+      productImage.srcset = [
+        `${weserv(baseUrl, 320)} 320w`,
+        `${weserv(baseUrl, 600)} 600w`,
+        `${weserv(baseUrl, 900)} 900w`,
+      ].join(", ");
+      productImage.sizes = "(min-width: 900px) 500px, 90vw";
+    } else {
+      productImage.src = "";
+    }
+
     productImage.alt = product.NameWithoutBrand;
+    productImage.title = product.Name;
 
     document.querySelector("#productPrice").textContent = `$${product.FinalPrice.toFixed(2)}`;
     document.querySelector("#productColor").textContent = product.Colors[0].ColorName;

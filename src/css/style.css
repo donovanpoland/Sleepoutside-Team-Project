@@ -266,6 +266,13 @@ button:hover, #checkout-btn:hover {
   width: 100%;
 }
 
+.product-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+
 /* Start cart list card styles */
 .cart-card {
   display: grid;
