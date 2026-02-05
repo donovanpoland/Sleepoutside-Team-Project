@@ -350,6 +350,10 @@ button:hover, #checkout-btn:hover {
   grid-column: 3/4;
 }
 
+.hide {
+  display: none;
+}
+
 /* News Letter Sign Up Section */
 
 .newsletter {
