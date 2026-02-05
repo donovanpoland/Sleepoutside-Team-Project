@@ -36,6 +36,33 @@ header {
   padding: 0.5rem;
 }
 
+.breadcrumbs {
+  padding: 0.35rem 0.75rem;
+  font-size: var(--small-font);
+  color: var(--tertiary-color);
+  background-color: #f7f2ea;
+
+  a {
+    color: var(--secondary-color);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+.breadcrumbs__trail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.breadcrumb-sep {
+  color: var(--light-grey);
+}
+
 p {
   padding: 0.75rem;
 }
@@ -153,7 +180,8 @@ button,
   text-decoration: none;
 }
 
-button:hover, #checkout-btn:hover {
+button:hover,
+#checkout-btn:hover {
   background: var(--tertiary-color);
 }
 
@@ -267,11 +295,10 @@ button:hover, #checkout-btn:hover {
 }
 
 .product-card img {
-    width: 100%;
-    height: auto;
-    display: block;
+  width: 100%;
+  height: auto;
+  display: block;
 }
-
 
 /* Start cart list card styles */
 .cart-card {
@@ -333,9 +360,9 @@ button:hover, #checkout-btn:hover {
   font: var(--font-body);
 }
 
-.cart-card-delete:hover{
+.cart-card-delete:hover {
   scale: 1.1;
-    background: none;
+  background: none;
 }
 
 .cart-footer {

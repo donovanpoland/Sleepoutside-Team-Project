@@ -1,4 +1,4 @@
-import { renderListWithTemplate, weserv } from "./utils.mjs";
+import { renderListWithTemplate, weserv, setBreadcrumbs } from "./utils.mjs";
 
 function productCardTemplate(product) {
   // Dynamic image sizes
@@ -46,6 +46,10 @@ export default class ProductList {
     this.renderList(list);
     // set the title based on the category --
     document.querySelector(".title").textContent = this.categoryTitle;
+    setBreadcrumbs([
+      { label: this.categoryTitle },
+      { label: `(${list.length} items)` },
+    ]);
   }
 
   renderList(list) {
@@ -53,4 +57,3 @@ export default class ProductList {
   }
 
 }// end class
-

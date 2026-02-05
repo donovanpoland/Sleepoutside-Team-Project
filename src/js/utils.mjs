@@ -97,6 +97,51 @@ export async function loadHeaderFooter() {
   renderWithTemplate(footerTemplate, footerElement);
 }
 
+// Render breadcrumb trail just below the header
+export function setBreadcrumbs(crumbs = []) {
+  const headerElement = document.querySelector("#dy-header");
+  if (!headerElement) return;
+
+  let nav = document.querySelector(".breadcrumbs");
+  if (!crumbs.length) {
+    if (nav) nav.remove();
+    return;
+  }
+
+  if (!nav) {
+    nav = document.createElement("nav");
+    nav.className = "breadcrumbs";
+    nav.setAttribute("aria-label", "Breadcrumb");
+    headerElement.insertAdjacentElement("afterend", nav);
+  }
+
+  nav.innerHTML = "";
+  const trail = document.createElement("div");
+  trail.className = "breadcrumbs__trail";
+
+  crumbs.forEach((crumb, index) => {
+    if (index > 0) {
+      const sep = document.createElement("span");
+      sep.className = "breadcrumb-sep";
+      sep.textContent = "→";
+      trail.appendChild(sep);
+    }
+
+    if (crumb.href) {
+      const link = document.createElement("a");
+      link.href = crumb.href;
+      link.textContent = crumb.label;
+      trail.appendChild(link);
+    } else {
+      const text = document.createElement("span");
+      text.textContent = crumb.label;
+      trail.appendChild(text);
+    }
+  });
+
+  nav.appendChild(trail);
+}
+
 //alert custom error message
 export function alertMessage(message, scroll = true) {
   // create element to hold the alert
