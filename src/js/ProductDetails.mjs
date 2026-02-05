@@ -1,4 +1,4 @@
-import { addToCart, updateCartCount, notifyCartChange, weserv, alertMessage } from "./utils.mjs";
+import { addToCart, updateCartCount, notifyCartChange, weserv, alertMessage, setBreadcrumbs } from "./utils.mjs";
 
 
 
@@ -12,6 +12,10 @@ export default class ProductDetails {
     async init() {
         // use the datasource to get the details for the current product. findProductById will return a promise! use await or .then() to process it
         this.product = await this.dataSource.findProductById(this.productId);
+        const categoryTitle = this.product.Category
+            ? this.product.Category.charAt(0).toUpperCase() + this.product.Category.slice(1)
+            : "Products";
+        setBreadcrumbs([{ label: categoryTitle }]);
         // the product details are needed before rendering the HTML
         this.renderProductDetails();
         // once the HTML is rendered, add a listener to the Add to Cart button

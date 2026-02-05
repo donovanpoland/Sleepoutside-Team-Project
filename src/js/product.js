@@ -10,7 +10,6 @@ const product = new ProductDetails(productId, dataSource);
 // Listen for cart updates
 window.addEventListener("cartUpdated", updateCartCount);
 
-
 document.addEventListener("DOMContentLoaded", () => {
   // Load product
   product.init();
