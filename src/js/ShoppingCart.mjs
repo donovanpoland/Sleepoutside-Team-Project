@@ -40,6 +40,7 @@ export default class ShoppingCart {
     constructor(cartElement, cartTotalElement) {
         this.cartElement = cartElement;
         this.cartTotalElement = cartTotalElement;
+        this.cartFooterElement = document.querySelector(".cart-footer");
         this.total = 0;
     }
 
@@ -57,7 +58,16 @@ export default class ShoppingCart {
 
     renderCart(cartItems) {
         // Use renderListWithTemplate utility function with clear=true to remove old items
-        renderListWithTemplate(cartItemTemplate, this.cartElement, cartItems, "afterbegin", true);
+        if (!cartItems.length) {
+        this.cartElement.innerHTML = `<li class="cart-empty">Your cart is empty.</li>`;
+        } else {
+        renderListWithTemplate(cartItemTemplate, this.cartElement, cartItems,"afterbegin", true);
+        }
+
+        if (this.cartFooterElement) {
+        this.cartFooterElement.classList.toggle("hide", !cartItems.length);
+        }
+
         this.updateCartTotal(cartItems);
     }
 

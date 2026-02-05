@@ -6,14 +6,9 @@ import {
   alertMessage,
 } from "./utils.mjs";
 
-// insert header and footer - wait for it to finish before updating cart count
+// insert header and footer
 document.addEventListener("DOMContentLoaded", () => {
   loadHeaderFooter().then(() => {
-    //const checkout = new CheckoutProcess();
-    //checkout.init();
-    //checkout.calculateItemSubTotal();
-    //checkout.calculateOrderTotal();
-    //checkout.displayOrderTotals();
     const order = new CheckoutProcess("so-cart", ".checkout-summary");
     order.init();
     //Add event listener to trigger calculateOrderTotal when the user changes the Zip code

@@ -1,4 +1,4 @@
-import { addToCart, updateCartCount, notifyCartChange, weserv } from "./utils.mjs";
+import { addToCart, updateCartCount, notifyCartChange, weserv, alertMessage } from "./utils.mjs";
 
 
 
@@ -24,6 +24,8 @@ export default class ProductDetails {
     addProductToCart() {
         // Use centralized helper to add product (handles dedupe and qty)
         addToCart(this.product, 1);
+        // Alert user that an item has been added to cart
+        alertMessage(`${this.product.NameWithoutBrand} added to cart.`, false);
         // Trigger cart icon animation
         this.animateCartIcon();
     }

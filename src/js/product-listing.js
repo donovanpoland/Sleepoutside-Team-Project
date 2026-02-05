@@ -14,12 +14,10 @@ myList.categoryTitle = categoryTitle;
 // Listen for cart updates from other pages
 window.addEventListener("cartUpdated", updateCartCount);
 
+myList.init();
+
 // insert header and footer - wait for it to finish before updating cart count
+// update cart count after header is loaded
 document.addEventListener("DOMContentLoaded", () => {
-  loadHeaderFooter().then(() => {
-    // other startup code
-    // update cart count after header is loaded
-    updateCartCount();
-    myList.init();
-  });
+  loadHeaderFooter().then(updateCartCount);
 });

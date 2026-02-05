@@ -10,12 +10,11 @@ const product = new ProductDetails(productId, dataSource);
 // Listen for cart updates
 window.addEventListener("cartUpdated", updateCartCount);
 
+
 document.addEventListener("DOMContentLoaded", () => {
-  loadHeaderFooter().then(() => {
-    // other startup code
-    // update cart count after header is loaded
-    updateCartCount();
-    // add products
-    product.init();
-  });
+  // Load product
+  product.init();
+  // insert header and footer - wait for it to finish before updating cart count
+  // update cart count after header is loaded
+  loadHeaderFooter().then(updateCartCount);
 });

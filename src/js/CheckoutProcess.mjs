@@ -94,20 +94,21 @@ export default class CheckoutProcess {
     orderTotal.innerText = `$${this.orderTotal.toFixed(2)}`;
   }
   async checkout() {
-    // get the form element data by the form name
-    const formElement = document.forms["checkout"];
-    const order = formDataToJSON(formElement);
-    // convert the form data to a JSON order object using the formDataToJSON function
-    // takes a form element and returns an object where the key is the "name" of the form input.
-    order.orderDate = new Date().toISOString();
-    order.orderTotal = this.orderTotal;
-    order.tax = this.tax;
-    order.shipping = this.shipping;
-    order.items = packageItems(this.list);
-    console.log(order);
-    // populate the JSON order object with the order Date, orderTotal, tax, shipping, and list of items
-    // call the checkout method in the ExternalServices module and send it the JSON order data.
     try {
+      // get the form element data by the form name
+      const formElement = document.querySelector("#checkout-form");
+      const order = formDataToJSON(formElement);
+      // convert the form data to a JSON order object using the formDataToJSON function
+      // takes a form element and returns an object where the key is the "name" of the form input.
+      order.orderDate = new Date().toISOString();
+      order.orderTotal = this.orderTotal;
+      order.tax = this.tax;
+      order.shipping = this.shipping;
+      order.items = packageItems(this.list);
+      console.log(order);
+      // populate the JSON order object with the order Date, orderTotal, tax, shipping, and list of items
+      // call the checkout method in the ExternalServices module and send it the JSON order data.
+    
       const response = await services.checkout(order);
       console.log("Checkout result:", response);
       // on success clear the cart and redirect to the existing success page
@@ -115,7 +116,7 @@ export default class CheckoutProcess {
       // ensure header/footer update and badge update fire
       removeAllAlerts();
       // existing filename in repo is "sucess.html" (single c), so redirect to that
-      location.assign("../checkout/sucess.html");
+      location.assign("../checkout/success.html");
     } catch (error) {
       removeAllAlerts();
       for (let message in error.message) {
